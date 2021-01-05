@@ -1,0 +1,50 @@
+if TARGET_ARMADILLO_640
+
+config SYS_BOARD
+	default "armadillo-640"
+
+config SYS_VENDOR
+	default "atmark-techno"
+
+config SYS_CONFIG_NAME
+	default "armadillo-640"
+
+config IMX_CONFIG
+	default "board/atmark-techno/armadillo-640/imximage.cfg"
+
+choice
+        prompt "Console UART select"
+        default CONSOLE_UART1
+
+config CONSOLE_UART1
+       bool "UART1"
+
+config CONSOLE_UART3
+       bool "UART3"
+endchoice
+
+config WLAN_RTC_OPTION_MODULE_INIT_ONOFF
+       bool "Waking up by WLAN/RTC Option Module's ONOFF pin operation"
+       help
+         This config needs Armadillo-640 WLAN/RTC Option Module whose
+         JP1 is shorted. Armadillo-640 can wake up from power-off
+         state by receiving the alarm signal that Armadillo-640
+         WLAN/RTC Option Module send via ONOFF signal
+         line(CON9_11). This function can be enabled by setting U-Boot
+         Environment Variable "stop_nr3225sa_alarm".
+
+         If say 'y' here, the default value of "stop_nr3225sa_alarm"
+         is set to "yes".
+
+config PF3000_LOW_POWER_MODE_ENABLE
+       bool "Enable Low Power Mode during standby mode"
+       help
+         This function can be enabled by setting U-Boot Environment
+         Variable "enable_pf3000_lpm".
+         In the low power mode, the power consumption of the PF3000
+         decreases by about 25 mW. However, because the power supply
+         capacity drops, it may not work properly.
+
+         If say 'y' here, the default value of "enable_pf3000_lpm" is
+         set to "yes".
+endif

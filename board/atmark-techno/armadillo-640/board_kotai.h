@@ -1,0 +1,11 @@
+#ifndef __BOARD_KOTAI_H
+#define __BOARD_KOTAI_H
+
+#define EFUSE_KOTAI_BANK			5
+#define EFUSE_KOTAI_WORD			0
+#define 	EFUSE_KOTAI_A640		0x009c
+#define 	EFUSE_KOTAI_A640ES		0x0097
+#define 	EFUSE_KOTAI_A610		0x00b7
+#define 	EFUSE_KOTAI_A610ES		0x00b4
+
+#endif
