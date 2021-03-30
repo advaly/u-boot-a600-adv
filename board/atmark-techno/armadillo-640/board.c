@@ -80,6 +80,12 @@ static void set_fdt_file(void)
 	}
 }
 
+static void setup_slot(void)
+{
+	if (env_get("slot") == NULL)
+		env_set("slot", "2");
+}
+
 void coloured_LED_init(void)
 {
 	imx_iomux_v3_setup_multiple_pads(status_led_gpio_pads,
@@ -101,6 +107,7 @@ int board_late_init(void)
 	wlan_rtc_board_late_init();
 	pmic_late_init();
 	set_fdt_file();
+	setup_slot();
 
 	return 0;
 }

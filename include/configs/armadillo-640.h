@@ -115,9 +115,10 @@ int wlan_rtc_i2c_read(void);
 #define ENABLE_PF3000_LPM_ENV_NAME	"enable_pf3000_lpm"
 
 #define CONFIG_BOOTCOMMAND \
-	"run setup_mmcargs; ext4load mmc 0:2 ${loadaddr} /boot/uImage; ext4load mmc 0:2 0x83000000 /boot/${fdt_file}; bootm ${loadaddr} - 0x83000000;"
+	"run setup_mmcargs; ext4load mmc 0:${slot} ${loadaddr} /boot/uImage; ext4load mmc 0:${slot} 0x83000000 /boot/${fdt_file}; bootm ${loadaddr} - 0x83000000; run setup_mmcargs_recovery; ext4load mmc 0:1 ${loadaddr} /uImage; ext4load mmc 0:1 0x83000000 /${fdt_file}; bootm ${loadaddr} - 0x83000000;"
 #define CONFIG_EXTRA_ENV_SETTINGS \
-	"setup_mmcargs=setenv bootargs root=/dev/mmcblk0p2 rootwait ${optargs};\0"\
+	"setup_mmcargs=setenv bootargs root=/dev/mmcblk0p${slot} rootwait rw ${optargs};\0"\
+	"setup_mmcargs_recovery=setenv bootargs ${optargs};\0"\
 	BOOTCOMMAND_USB\
 	"tftpboot=tftpboot uImage; tftpboot 0x83000000 ${fdt_file}; bootm ${loadaddr} - 0x83000000;\0"\
 	STOP_NR3225SA_ALARM_ENV_NAME "=" STOP_NR3225SA_ALARM_DEFAULT ";\0"\
