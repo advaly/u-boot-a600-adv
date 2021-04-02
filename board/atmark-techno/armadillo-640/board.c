@@ -82,8 +82,15 @@ static void set_fdt_file(void)
 
 static void setup_slot(void)
 {
-	if (env_get("slot") == NULL)
-		env_set("slot", "2");
+	if (gpio_get_value(MAINTENANCE_MODE_GPIO_SW1)) {
+		/* Boot as recovery mode */
+		env_set("slot", "1");
+	} else {
+		if (env_get("slot") == NULL) {
+			/* Boot from slot 2 as default */
+			env_set("slot", "2");
+		}
+	}
 }
 
 void coloured_LED_init(void)
@@ -129,6 +136,6 @@ ulong timer_get_boot_us(void)
 #if defined(CONFIG_SUPPORT_MAINTENANCE_MODE)
 int is_maintenance_mode(void)
 {
-	return !gpio_get_value(MAINTENANCE_MODE_GPIO_CON9_1) || gpio_get_value(MAINTENANCE_MODE_GPIO_SW1);
+	return !gpio_get_value(MAINTENANCE_MODE_GPIO_CON9_1);
 }
 #endif
