@@ -339,8 +339,10 @@ static int env_mmc_load(void)
 fini:
 	fini_mmc_for_env(mmc);
 err:
-	if (ret)
+	if (ret) {
 		set_default_env(errmsg);
+		env_save();
+	}
 #endif
 	return ret;
 }
